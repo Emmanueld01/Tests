@@ -1,0 +1,229 @@
+/* =================================================================
+// EMMA TASK - Global Styles (style.css)
+// ================================================================= */
+
+/* CSS RESET & VARIABLES */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --color-primary: #3498db;    /* Vibrant Blue */
+    --color-secondary: #2ecc71;  /* Green for success */
+    --color-background: #ecf0f1; /* Light Gray */
+    --color-card: #ffffff;      /* White for cards */
+    --color-text-dark: #333;
+    --color-text-gray: #95a5a6;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* HEADER & FOOTER */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    background-color: var(--color-card);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px 0;
+    color: var(--color-text-gray);
+    font-size: 0.9em;
+}
+
+/* MAIN CONTAINER - Using Grid for Layout */
+.contenedor-principal {
+    display: grid;
+    /* Base distribution: General List (1 part) | Weekly Schedule (2 parts) */
+    /* 🔑 CAMBIO: Hacemos el grid base muy fuerte para evitar interferencias. */
+    grid-template-columns: 1fr 2fr !important; 
+    gap: 30px;
+}
+
+/* CLASES DE ALTERNANCIA (TOGGLE) PARA LAYOUT FLEXIBLE */
+
+/* Cuando el usuario hace clic en el encabezado de la Agenda */
+.contenedor-principal.agenda-focused {
+    /* Agenda: 5 partes, Lista General: 1 parte */
+    grid-template-columns: 5fr 1fr !important; 
+}
+
+/* 🔑 SOLUCIÓN DEFINITIVA: Contrae agresivamente la Lista General */
+.contenedor-principal.agenda-focused .lista-general {
+    opacity: 0.3; 
+    pointer-events: none; 
+    /* Forzamos al elemento a ser flexible y a no romper el grid */
+    min-width: 0; 
+    overflow: hidden; /* Oculta cualquier texto que intente desbordarse */
+}
+
+/* Cuando el usuario hace clic en el encabezado de la Lista General */
+.contenedor-principal.list-focused {
+    /* Lista General: 2 partes, Agenda: 1 parte */
+    grid-template-columns: 2fr 1fr !important; 
+}
+
+/* 🔑 SOLUCIÓN DEFINITIVA: Contrae agresivamente la Agenda */
+.contenedor-principal.list-focused .agenda-diaria {
+    opacity: 0.3;
+    pointer-events: none; 
+    /* Forzamos al elemento a ser flexible y a no romper el grid */
+    min-width: 0; 
+    overflow: hidden;
+}
+
+/* GENERAL SECTION STYLES */
+.lista-general, .agenda-diaria {
+    background-color: var(--color-card);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: var(--color-primary);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--color-background);
+    padding-bottom: 10px;
+}
+
+/* INPUT AND BUTTON STYLES */
+.input-grupo, .input-grupo-dia {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.input-grupo input[type="text"], .input-grupo-dia input[type="text"] {
+    flex-grow: 1;
+    min-width: 0; 
+    padding: 10px;
+    border: 1px solid var(--color-text-gray);
+    border-radius: 4px 0 0 4px;
+    font-size: 1em;
+}
+
+.input-grupo button, .input-grupo-dia button {
+    flex-shrink: 0;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.input-grupo button:hover, .input-grupo-dia button:hover {
+    background-color: #2980b9;
+}
+
+/* TASK LIST STYLES */
+.lista-tareas, .lista-tareas-dia {
+    list-style: none;
+}
+
+.lista-tareas li, .lista-tareas-dia li {
+    background-color: var(--color-background);
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.3s;
+}
+
+/* Completed Task Style */
+.lista-tareas .completed, .lista-tareas-dia .completed {
+    text-decoration: line-through;
+    color: var(--color-text-gray);
+    background-color: #f7f9fb;
+}
+
+.delete-task {
+    color: red;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 0.9em;
+    transition: color 0.2s;
+}
+
+.delete-task:hover {
+    color: darkred;
+}
+
+/* DAILY SCHEDULE STYLES */
+.dias-contenedor {
+    display: grid;
+    align-items: start; 
+    /* Responsive columns for the 7 days */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.dia {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fcfcfc;
+    min-height: 200px; /* Ensures visual consistency */
+}
+
+.dia h3 {
+    margin-top: 0;
+    color: var(--color-secondary);
+    font-size: 1.1em;
+}
+
+/* Highlight Today */
+.dia.today {
+    border: 3px solid var(--color-primary);
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+    background-color: #f9f9ff;
+}
+
+/* MEDIA QUERIES (Responsiveness) */
+@media (max-width: 768px) {
+    /* Esto fuerza el apilamiento vertical en móviles */
+    .contenedor-principal {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* 🔑 SOLUCIÓN CRÍTICA: Deshabilita el toggle horizontal en móviles */
+    /* Todas las clases de foco deben anularse para que el layout sea vertical */
+    .contenedor-principal.agenda-focused,
+    .contenedor-principal.list-focused {
+        grid-template-columns: 1fr !important; /* ¡Forzamos 1fr en móvil! */
+    }
+    
+    /* ... (El resto de las anulaciones para opacity y pointer-events) ... */
+
+    .contenedor-principal .lista-general, 
+    .contenedor-principal .agenda-diaria {
+        opacity: 1 !important; 
+        pointer-events: auto !important;
+        width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .dias-contenedor {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}

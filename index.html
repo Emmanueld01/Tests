@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmmaTask: Professional Organizer</title>
+    <link rel="stylesheet" href="src/css/style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <h1>EmmaTask: Your Task and Schedule Manager</h1>
+    </header>
+
+    <main class="contenedor-principal">
+        <section class="lista-general">
+            <h2>Pending Tasks (General To-Do)</h2>
+            <div class="input-grupo">
+                <input type="text" id="nuevaTareaGeneral" placeholder="Add long-term task...">
+                <button id="btnAgregarGeneral"><i class="fas fa-plus"></i> Add</button>
+            </div>
+            <ul id="listaTareasGeneral" class="lista-tareas">
+                </ul>
+        </section>
+
+        <section class="agenda-diaria">
+            <h2>Weekly Schedule</h2>
+            <p class="subtitulo-agenda">Next 7 days</p>
+            <div class="dias-contenedor" id="agendaContenedor">
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 EmmaTask. All Rights Reserved.</p>
+    </footer>
+
+    <script src="src/js/script.js"></script>
+
+</body>
+</html>
